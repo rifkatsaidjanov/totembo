@@ -1,0 +1,24 @@
+{% load static %}
+
+
+<div class="email_form" style='background-image: url({% static "store/images/email_form-bg.png" %});'>
+            <div class="email_form-block text-center d-flex w-100 h-100 align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3 class="email_form-title">Стань частью нас!</h3>
+                            <p class="email_form-desc">Присоединяйтесь к нам, чтобы получить скидки, выпуски новых продуктов и новых
+                                Прибытие</p>
+                            <form class="d-flex flex-column" action="{% url 'send_comment' %}" method="post">
+                                {% csrf_token %}
+                                {{ send_form.email }}
+
+                                {{ send_form.comment }}
+                                <a class="email_form-link m-0" href="{% url 'product_list' %}">Отправить</a>
+<!--                                <input type="submit" class="email_form-link m-0" value="Отправить" style="border: 0; background-color: rgba(0,0,0,0.6); ">-->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

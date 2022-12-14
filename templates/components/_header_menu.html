@@ -1,0 +1,59 @@
+{% load static %}
+{% load store_tags %}
+{% get_categories as categories %}
+
+<div class="header_lx-panel">
+    <input type="checkbox" class="toggler">
+    <div class="hamburger">
+        <div></div>
+    </div>
+    <div class="menu">
+        <div>
+            <div>
+                <ul>
+                    <li>
+                        <a class="header_nav-link">
+                            <form action="{% url 'search' %}" method="get" class="form-inline d-flex"
+                                  style="height:100%;">
+                                <input type="search" placeholder="Поиск" name="q" class="form-control mr-sm-2">
+                                <button class="btn" type="submit" style="margin: 0 10px; padding: 0">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                        </a>
+                        {% get_cart_product_quantity request as cart_products_quantity %}
+                        <a href="{% url 'cart' %}" class="text-white">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="badge bg-primary rounded-pill">{{ cart_products_quantity }}</span>
+                        </a>
+                    </li>
+                    {% for category in categories %}
+                    <li class="header_nav-item">
+                        <a class="header_nav-link" href="{{ category.get_absolute_url }}">{{ category.title }}</a>
+                    </li>
+                    {% endfor %}
+
+                    {% if not request.user.is_authenticated %}
+                    <li class="header_nav-item"><a class="header_nav-link" href="{% url 'user_form' %}">Создать
+                        аккаунт</a></li>
+                    {% else %}
+                    <li class="header_nav-item"><a class="header_nav-link" href="{% url 'profile' %}">Мой профиль</a>
+                    </li>
+                    {%endif%}
+
+                    <li class=" d-flex align-items-center">
+                        <a {% if request.user.is_authenticated %}
+                           href="{% url 'profile' %}"
+                           {% else %}
+                           href="{% url 'user_form' %}"
+                           {% endif %}
+                           class="text-white" style="margin: 0 auto !important;">
+                            <i class="far fa-user"></i>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>

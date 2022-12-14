@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Мой профиль
+{% endblock title %}
+<br>
+
+{% block main %}
+<div class="container">
+    <div class="profile"
+         style="height: 300px; border: 1px solid black; padding: 20px; margin-bottom: 20px;">
+        <h1>Мой профиль</h1>
+        <h4 style="border-bottom: 1px solid black;">{{ request.user.first_name }}</h4>
+        <h4 style="border-bottom: 1px solid black;">{{ request.user.last_name }}</h4>
+        <h4 style="border-bottom: 1px solid black;">{{ request.user.username }}</h4>
+        <h4 style="border-bottom: 1px solid black;">{{ request.user.email }}</h4>
+        <a class="btn btn-danger btn-profil" href="{% url 'logout' %}">Выйти из аккаунта</a>
+    </div>
+
+
+</div>
+{% endblock main %}

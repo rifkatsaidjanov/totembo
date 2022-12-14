@@ -1,0 +1,31 @@
+{% load static %}
+
+<header class="{% if 'category' in request.path %} mb-0 {% endif %}">
+    <nav class="header_nav {% if 'category' in request.path %} mb-0 {% endif %} ">
+
+        <div class="container">
+            <div class=" d-flex align-items-center justify-content-between pt-3">
+                <div class="">
+                    <a href="{% url 'product_list' %}">
+                        <img src="{% static 'images/header_logo.jpg' %}" alt="">
+                    </a>
+                </div>
+
+                <div class="d-flex justify-content-between flex-wrap align-items-center">
+                    {% include 'components/_header_nav.html' %}
+                    {% include 'components/_header_panel.html' %}
+                </div>
+
+            </div>
+        </div>
+
+
+        {% include 'components/_header_menu.html' %}
+
+    </nav>
+    {% if request.path == '/' %}
+        {% include 'components/_header_text.html' %}
+        {% include 'components/_header_poster.html' %}
+    {% endif %}
+
+</header>

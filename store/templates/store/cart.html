@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
+<main>
+    <div class="container" style="margin-bottom: 50px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="box-element box-element-lg">
+                    <div style="margin-bottom: 20px;">
+                        <a class="btn btn-primary" href="{% url 'product_list' %}">&#x2190; Продолжить покупки</a>
+                    </div>
+                    <table class="table">
+                        <tr>
+                            <th>
+                                <h5>
+                                    Товары: <strong> {{ order.cart_products_quantity }} </strong>
+                                </h5>
+                            </th>
+                            <th>
+                                <h5>
+                                    Стоимость:<strong>${{ order.cart_total_price }}</strong>
+                                </h5>
+                            </th>
+                            <th>
+                                <a style="float:right; margin:5px;" class="btn btn-success" href="{% url 'checkout' %}">Оформить
+                                    заказ</a>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+                <br>
+
+                <div class="box-element box-element-lg">
+                    <div class="cart-row">
+                        <div style="flex:2"></div>
+                        <div style="flex:2">
+                            <strong style="display: flex; justify-content: center;">Товар</strong>
+                        </div>
+                        <div style="flex:1">
+                            <strong style="display: flex; justify-content: center;">Цена</strong>
+                        </div>
+                        <div style="flex:1">
+                            <strong style="display: flex; justify-content: center;">Количество</strong>
+                        </div>
+                        <div style="flex:1">
+                            <strong style="display: flex; justify-content: center;">Итого</strong>
+                        </div>
+                    </div>
+
+                    {% for item in items %}
+                    <div class="basket"
+                         style="margin-bottom: 20px; box-shadow: hsl(0deg 0% 80%) 0 10px 16px;">
+                        <div class="cart-row">
+                            <div style="flex:2">
+                                <img class="row-image" src="{{ item.product.image_url }}">
+                            </div>
+                            <div style="flex:2">
+                                <p style="display: flex; justify-content: center;">
+                                    {{ item.product.name }}
+                                </p>
+                            </div>
+                            <div style="flex:1">
+                                <p style="display: flex; justify-content: center;">
+                                    ${{ item.product.price }}
+                                </p>
+                            </div>
+                            <div style="flex:1">
+
+                                <div class="quantity quantity-card d-flex flex-column">
+
+                                    <a class="btn to-top text-dark"
+                                       href="{% url 'to_cart' product_id=item.product.pk action='add' %}"
+                                       style="margin: 0 auto !important; padding: 0 !important;">
+                                        <i data-product="id"
+                                           data-action="add"
+                                           class="fas fa-sort-up chg-quantity update-cart">
+                                        </i>
+                                    </a>
+                                    <p class="quantity-nomber"
+                                       style="margin: 0 auto !important; justify-content: center">
+                                        {{ item.quantity }}
+                                    </p>
+                                    <a class="btn to-bottom text-dark"
+                                       href="{% url 'to_cart' product_id=item.product.pk action='delete' %}"
+                                       style="margin: 0 auto !important; padding: 0 !important;">
+                                        <i data-product="id"
+                                           data-action="remove"
+                                           class="fas fa-sort-down chg-quantity update-cart">
+                                        </i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div style="flex:1">
+
+                                <p style="margin: 0 auto !important; padding: 0 !important; display: flex; justify-content: center;">
+                                    ${{ item.total_price }}
+                                </p>
+
+
+                            </div>
+                        </div>
+                        <a class="btn btn-danger btn-delete"
+                           href="{% url 'to_cart' product_id=item.product.pk action='delate_all' %}"
+                           style="width: 180px; height: 40px; margin: 5px; padding: 5px !important;">
+                            Удалить из корзины
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!--kichik ekranga-->
+
+<div class="container">
+    <div class="box-element-sm-display">
+
+        <div class="cart-sm">
+            {% for item in items %}
+            <div class="basket"
+                 style="margin-bottom: 20px; box-shadow: hsl(0deg 0% 80%) 0 10px 16px; padding: 20px;">
+                <div class="">
+                    <div style="">
+                        <img class="row-image" src="{{ item.product.image_url }}">
+                    </div>
+                    <div style="">
+                        <p style="">
+                            <strong style="">Товар: </strong> {{ item.product.name }}
+                        </p>
+                    </div>
+                    <div style="">
+                        <p style="">
+                            <strong style="">Цена: </strong> ${{ item.product.price }}
+                        </p>
+                    </div>
+                    <div style="">
+
+                        <div class="quantity quantity-card d-flex flex-column">
+
+
+                            <div class="d-flex align-items-center">
+                                <div class="">
+                                    <strong style="">Количество: </strong>
+                                </div>
+
+                                <div class="">
+                                    <a class="btn to-top text-dark"
+                                       href="{% url 'to_cart' product_id=item.product.pk action='add' %}"
+                                       style="margin: 0 !important;">
+                                        <i data-product="id"
+                                           data-action="add"
+                                           class="fas fa-sort-up chg-quantity update-cart">
+                                        </i>
+                                    </a>
+                                    <p style="margin: 0 auto !important; display: flex; justify-content: center;">
+                                        {{ item.quantity }}
+                                    </p>
+                                    <a class="btn to-bottom text-dark"
+                                       href="{% url 'to_cart' product_id=item.product.pk action='delete' %}"
+                                       style="margin: 0 !important;">
+                                        <i data-product="id"
+                                           data-action="remove"
+                                           class="fas fa-sort-down chg-quantity update-cart">
+                                        </i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="">
+
+                        <p style="">
+                            <strong style="">Итого: </strong> ${{ item.total_price }}
+                        </p>
+
+
+                    </div>
+                </div>
+                <a class="btn btn-danger btn-delete-sm"
+                   href="{% url 'to_cart' product_id=item.product.pk action='delate_all' %}"
+                   style="width: 180px; height: 40px; margin: 5px; padding: 5px !important;">
+                    Удалить из корзины
+                </a>
+            </div>
+            {% endfor %}
+
+
+            <div class="total_price-sm" style="box-shadow: hsl(0deg 0% 80%) 0 0 16px; padding: 20px;">
+                <div class="box-element-sm">
+                    <a class="btn btn-primary" href="{% url 'product_list' %}">&#x2190; Продолжить покупки</a>
+
+                    <h5>
+                        Товары: <strong> {{ order.cart_products_quantity }} </strong>
+                    </h5>
+
+                    <h5>
+                        Стоимость:<strong>${{ order.cart_total_price }}</strong>
+                    </h5>
+
+                    <a style="" class="btn btn-success" href="{% url 'checkout' %}">Оформить заказ</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock main %}
+
+
